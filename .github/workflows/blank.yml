@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      SHOULD_PASS:
+        description: '是否通过（true/false）'
+        required: true
+        default: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 延时 30 秒
+        run: sleep 30
+
+      - name: 判断变量并决定是否通过
+        run: |
+          echo "SHOULD_PASS=${{ github.event.inputs.SHOULD_PASS }}"
+          if [ "${{ github.event.inputs.SHOULD_PASS }}" = "true" ]; then
+            echo "通过"
+          else
+            echo "失败，退出"
+            exit 1
+          fi
