@@ -1,6 +1,12 @@
 name: CI
 
 on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '*/10 * * * *'  # 每10分钟触发一次
   workflow_dispatch:
     inputs:
       SHOULD_PASS:
@@ -20,7 +26,7 @@ jobs:
       - name: 判断变量并决定是否通过
         run: |
           echo "SHOULD_PASS=${{ github.event.inputs.SHOULD_PASS }}"
-          if [ "${{ github.event.inputs.SHOULD_PASS }}" = "true" ]; then
+          if [ "${{ github.event.inputs.SHOULD_PASS }}" = "true" ] || [ -z "${{ github.event.inputs.SHOULD_PASS }}" ]; then
             echo "通过"
           else
             echo "失败，退出"
