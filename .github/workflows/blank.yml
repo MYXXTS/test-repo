@@ -1,12 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  schedule:
-    - cron: '*/10 * * * *'  # 每10分钟触发一次
   workflow_dispatch:
     inputs:
       SHOULD_PASS:
