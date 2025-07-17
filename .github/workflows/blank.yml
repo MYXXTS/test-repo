@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 延时 30 秒
-        run: sleep 30
+      - name: 延时 10 秒
+        run: sleep 10
 
       - name: 判断变量并决定是否通过
         run: |
